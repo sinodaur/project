@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//This is the script for the DM of the game
+
 public class DM : MonoBehaviour {
 	
 	GameObject player;
