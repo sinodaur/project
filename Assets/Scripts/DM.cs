@@ -27,6 +27,13 @@ public class DM : MonoBehaviour {
 	void seeWhatPlayerWants() 
 	{
 		player = GameObject.Find("Player");
-		ObjectDetection.whatTouching(player);
+		ObjectActionInfo objectTouchedByPlayer = ObjectDetection.whatTouching(player);
+		string side = objectTouchedByPlayer.getSideAffected();
+		GameObject go = objectTouchedByPlayer.getTheGameObject();
+		
+		if (objectTouchedByPlayer.getTheGameObject() != null)
+			Debug.Log("The " + side + " of the " + go + " game object is being touched" );
+		else
+			Debug.Log("Nothing is being touched" );
 	}
 }
