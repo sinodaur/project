@@ -14,15 +14,15 @@ public class ObjectDetection : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
-		whatTouching(this.gameObject);
+		
 	}
 	
+	//detect what object the gameObject is touching with a ray and return an ObjectTouch Object
 	
-	
-	public static ObjectActionInfo whatTouching(GameObject myGameObject)
+	public static ObjectTouch whatTouching(GameObject myGameObject)
 	{
 		
-		ObjectActionInfo objectActionInfo = new ObjectActionInfo();
+		ObjectTouch objectTouch = new ObjectTouch();
 		BoxCollider myBox = new BoxCollider();
 		RaycastHit hit;
 		Vector3 localPoint = new Vector3();
@@ -48,10 +48,11 @@ public class ObjectDetection : MonoBehaviour
 			
 			localPoint = hit.transform.InverseTransformPoint(hit.point);
 			localDir = localPoint.normalized;
-			upDot = Vector3.Dot(localDir,Vector3.up); 
 			
+			upDot = Vector3.Dot(localDir,Vector3.up); 
 			fwdDot = Vector3.Dot(localDir,Vector3.forward); 
 			rightDot = Vector3.Dot(localDir,Vector3.right);
+			
 			upPower = Mathf.Abs(upDot); 
 			fwdPower = Mathf.Abs(fwdDot); 
 			rightPower = Mathf.Abs(rightDot);
@@ -67,13 +68,13 @@ public class ObjectDetection : MonoBehaviour
 			else if (largestPower == 2 && rightDot < 0) myObjectsSide = "left";
 			else if (largestPower == 2 && rightDot > 0) myObjectsSide = "right";
 			
-			objectActionInfo = new ObjectActionInfo(myBox.gameObject, myObjectsSide);
+			objectTouch = new ObjectTouch(myBox.gameObject, myObjectsSide);
 			
-			return objectActionInfo;
+			return objectTouch;
 			
 		}
 			
-		return objectActionInfo;	
+		return objectTouch;	
 			
 	}
 		

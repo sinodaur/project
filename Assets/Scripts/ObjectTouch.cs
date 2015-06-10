@@ -1,19 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ObjectActionInfo
+public class ObjectTouch
 {
 
 	GameObject theGameObject;
 	string sideAffected;
 	
 	
-	public ObjectActionInfo()
+	public ObjectTouch()
 	{
 			
 	}
 	
-	public ObjectActionInfo(GameObject theGO, string side)
+	public ObjectTouch(GameObject theGO, string side)
 	{
 		theGameObject = theGO;
 		sideAffected = side;	
@@ -29,5 +29,7 @@ public class ObjectActionInfo
 	{
 		return theGameObject;
 	}
+	
+	
 	
 }
