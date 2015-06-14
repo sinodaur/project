@@ -21,10 +21,7 @@ public class DM : MonoBehaviour {
 		
 		// tell the PlayerController to give control to the Player GameObject
 		playerController.setGameObject(player);
-		playerController.startObjectPlayerControl();
-		
-		// start listening for requests
-		InvokeRepeating("listenForPlayerRequest", 0f, 0.1F);
+		playerController.startObjectPlayerControl();	
 		
 	}
 	
@@ -33,15 +30,12 @@ public class DM : MonoBehaviour {
 		
 	}
 	
-	void stopListenForPlayerRequest()
-	{
-		CancelInvoke("listenForPlayerRequest");
-	}
 	
-	void listenForPlayerRequest()
+	// fuction to notify DM of player pushing a non-movement button
+	public void notifyPlayerRequest(KeyCode key)
 	{
-		// listen for action key to be pressed
-		if (Input.GetKey(KeyCode.Space)) seeWhatPlayerWants();
+		// action key that was pressed
+		if (key == KeyCode.Space) seeWhatPlayerWants();
 	}
 	
 	void seeWhatPlayerWants() 

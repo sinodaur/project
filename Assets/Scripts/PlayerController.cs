@@ -5,14 +5,21 @@ public class PlayerController : MonoBehaviour
 {
 	
 
-	private GameObject gObject;
-	private Rigidbody RBody;
-	private float speed = 500f;
-	private Vector3 playerOrientation = new Vector3();
-	private Vector3 playerStop = new Vector3();
+	 DM dM;
+	 GameObject gObject;
+	 Rigidbody RBody;
+	 float speed = 500f;
+	 Vector3 playerOrientation = new Vector3();
+	 Vector3 playerStop = new Vector3();
 	
 	
 	// control variable to shut-off/ turn-on access to player false by default
+	
+	void Start() 
+	{
+		dM = GameObject.Find("DM").GetComponent("DM") as DM;
+		
+	}
 	
 	
 	public void setGameObject(GameObject go)
@@ -53,12 +60,16 @@ public class PlayerController : MonoBehaviour
 		CancelInvoke("Movement");
 	}
 	
-	private void Movement() 
+	void Movement() 
 	{
 		
-		
+		if (Input.GetKey(KeyCode.Space))
+		{
+			dM.notifyPlayerRequest(KeyCode.Space);
+		}
 	
-		if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
+		
+		else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
 		{
 			
 			playerOrientation.y = 315f;

@@ -1,21 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ObjectDetection : MonoBehaviour 
+public class ObjectDetection 
 
 {
 	
-	
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		
-	}
+
 	
 	//detect what object the gameObject is touching with a ray and return an ObjectTouch Object
 	

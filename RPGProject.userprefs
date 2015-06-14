@@ -2,10 +2,10 @@
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\ObjectDetection.cs">
     <Files>
-      <File FileName="Assets\Scripts\ObjectDetection.cs" Line="44" Column="3" />
-      <File FileName="Assets\Scripts\DM.cs" Line="19" Column="1" />
-      <File FileName="Assets\Scripts\ObjectTouch.cs" Line="11" Column="9" />
-      <File FileName="Assets\Scripts\PlayerController.cs" Line="23" Column="3" />
+      <File FileName="Assets\Scripts\PlayerController.cs" Line="50" Column="22" />
+      <File FileName="Assets\Scripts\ObjectDetection.cs" Line="24" Column="13" />
+      <File FileName="Assets\Scripts\DM.cs" Line="32" Column="2" />
+      <File FileName="Assets\Scripts\ObjectTouch.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
