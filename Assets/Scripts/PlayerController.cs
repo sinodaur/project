@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 	 float speed = 500f;
 	 Vector3 playerOrientation = new Vector3();
 	 Vector3 playerStop = new Vector3();
+	 
 	
 	
 	// control variable to shut-off/ turn-on access to player false by default
@@ -63,69 +64,64 @@ public class PlayerController : MonoBehaviour
 	void Movement() 
 	{
 		
-		if (Input.GetKey(KeyCode.Space))
-		{
-			dM.notifyPlayerRequest(KeyCode.Space);
-		}
-	
+		float upDown = Input.GetAxis ("Vertical");
+		float leftRight = Input.GetAxis ("Horizontal");
 		
-		else if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
+		
+		
+		if (Input.GetButton("Fire1"))
 		{
-			
+			dM.notifyPlayerRequest("Fire1");
+		}
+		
+		if (upDown > 0 && leftRight < 0)
+		{
 			playerOrientation.y = 315f;
 			gObject.transform.eulerAngles = playerOrientation;
-			RBody.velocity += gObject.transform.forward * speed * Time.deltaTime;
+			moveALittle();
 		}
-		else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S))
+		else if (leftRight < 0 && upDown < 0)
 		{
-			
 			playerOrientation.y = 225f;
 			gObject.transform.eulerAngles = playerOrientation;
-			RBody.velocity += gObject.transform.forward * speed * Time.deltaTime;
+			moveALittle();
 		}
-		else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
+		else if (upDown < 0 && leftRight > 0)
 		{
-			
 			playerOrientation.y = 135f;
 			gObject.transform.eulerAngles = playerOrientation;
-			RBody.velocity += gObject.transform.forward * speed * Time.deltaTime;
+			moveALittle();
 		}
-		else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.W))
+		else if (leftRight > 0 && upDown > 0)
 		{
-			
 			playerOrientation.y = 45f;
 			gObject.transform.eulerAngles = playerOrientation;
-			RBody.velocity += gObject.transform.forward * speed * Time.deltaTime;
+			moveALittle();
 		}
 		
-		else if (Input.GetKey(KeyCode.W))
+		else if (upDown > 0)
 		{
-			
 			playerOrientation.y = 0.0f;
 			gObject.transform.eulerAngles = playerOrientation;
-			RBody.velocity += gObject.transform.forward * speed * Time.deltaTime;
+			moveALittle();
 		}
-		else if (Input.GetKey(KeyCode.S))
+		else if (upDown < 0)
 		{
-			
 			playerOrientation.y = 180f;
 			gObject.transform.eulerAngles = playerOrientation;
-			RBody.velocity += gObject.transform.forward * speed * Time.deltaTime;
+			moveALittle();
 		}
-		else if (Input.GetKey(KeyCode.D))
+		else if (leftRight > 0)
 		{
-			
 			playerOrientation.y  = 90f;
 			gObject.transform.eulerAngles = playerOrientation;
-			RBody.velocity += gObject.transform.forward * speed * Time.deltaTime;
+			moveALittle();
 		}
-		else if (Input.GetKey(KeyCode.A))
+		else if (leftRight < 0)
 		{
-			
 			playerOrientation.y  = 270f;
 			gObject.transform.eulerAngles = playerOrientation;
-			RBody.velocity += gObject.transform.forward * speed * Time.deltaTime;
-			
+			moveALittle();
 		}
 		else
 		{
@@ -134,6 +130,11 @@ public class PlayerController : MonoBehaviour
 	
 		
 	
+	}
+	
+	void moveALittle()
+	{
+		RBody.velocity += gObject.transform.forward * speed * Time.deltaTime;
 	}
 
 }

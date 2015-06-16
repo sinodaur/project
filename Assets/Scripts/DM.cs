@@ -32,10 +32,15 @@ public class DM : MonoBehaviour {
 	
 	
 	// fuction to notify DM of player pushing a non-movement button
-	public void notifyPlayerRequest(KeyCode key)
+	public void notifyPlayerRequest(string button)
 	{
+		// suspend player control until checked by DM
+		playerController.stopObjectPlayerControl();
 		// action key that was pressed
-		if (key == KeyCode.Space) seeWhatPlayerWants();
+		if (button == "Fire1") seeWhatPlayerWants();
+		
+		// give control back to player
+		playerController.startObjectPlayerControl();
 	}
 	
 	void seeWhatPlayerWants() 
