@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using MyGame.DataObjects;
+using MyGame.Enums;
 
 namespace MyGame.Static
 {
@@ -27,7 +28,7 @@ namespace MyGame.Static
 			float fwdPower = 0f;  
 			float rightPower = 0f;
 			int largestPower = 1;
-			string myObjectsSide = "";
+			SidesList myObjectsSide = SidesList.front;
 			
 			Vector3 fwd = myGameObject.transform.TransformDirection(Vector3.forward);
 			
@@ -54,12 +55,12 @@ namespace MyGame.Static
 				else if (rightPower > upPower && rightPower > fwdPower) largestPower = 2;
 				else largestPower = 0;
 				
-				if (largestPower == 0 && upDot < 0) myObjectsSide = "bottom";
-				else if (largestPower == 0 && upDot > 0) myObjectsSide = "top";
-				else if (largestPower == 1 && fwdDot < 0) myObjectsSide = "front";
-				else if (largestPower == 1 && fwdDot > 0) myObjectsSide = "back";
-				else if (largestPower == 2 && rightDot < 0) myObjectsSide = "left";
-				else if (largestPower == 2 && rightDot > 0) myObjectsSide = "right";
+				if (largestPower == 0 && upDot < 0) myObjectsSide = SidesList.bottom;
+				else if (largestPower == 0 && upDot > 0) myObjectsSide = SidesList.top;
+				else if (largestPower == 1 && fwdDot < 0) myObjectsSide = SidesList.front;
+				else if (largestPower == 1 && fwdDot > 0) myObjectsSide = SidesList.back;
+				else if (largestPower == 2 && rightDot < 0) myObjectsSide = SidesList.left;
+				else if (largestPower == 2 && rightDot > 0) myObjectsSide = SidesList.right;
 				
 				objectTouch = new ObjectTouch(myBox.gameObject, myObjectsSide);
 				

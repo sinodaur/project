@@ -3,6 +3,7 @@ using System.Collections;
 using MyGame.DataObjects;
 using MyGame.PlayerInterface;
 using MyGame.Static;
+using MyGame.EventManagment;
 
 //This is the script for the DM of the game
 
@@ -13,21 +14,40 @@ namespace MyGame
 		
 		GameObject player;
 		GameObject playerControllerGO;
+		ObjectEventMaster objectEventMaster;
+		GameObject objectEventMasterGO;
 		PlayerController playerController;
 		
 		
-		// This class gives the DM GameObject central control over the game and all it's objects.
+		public bool[] globalFlags;
+		
+		
+		
+		
+		
+		// This class has central control over the game and all it's objects.
 		void Start () 
-		{
+		{	
+			
+			//find subordinates
+			objectEventMasterGO = GameObject.Find("ObjectEventMaster");
+			playerControllerGO = GameObject.Find("PlayerController");
+			
+			//initialize globalFlags for game event control
+			globalFlags = new bool[128];
+			
 			// find the main player of the game
 			player = GameObject.Find("Player");
 			
 			// get ahold of the PlayerController instance that gives control of GameObjects to the player
-			playerController = GameObject.Find("PlayerController").GetComponent<PlayerController>();
+			playerController = playerControllerGO.GetComponent<PlayerController>();
 			
 			// tell the PlayerController to give control to the Player GameObject
 			playerController.setGameObject(player);
 			playerController.startObjectPlayerControl();	
+			
+			// get objectEventMaster for object event control
+			objectEventMaster = objectEventMasterGO.GetComponent<ObjectEventMaster>();
 			
 		}
 		
@@ -56,20 +76,25 @@ namespace MyGame
 			
 			// get the touch information 
 			ObjectTouch objectTouchedByPlayer = ObjectDetection.whatTouching(player);
-			string side = objectTouchedByPlayer.getSideAffected();
-			GameObject go = objectTouchedByPlayer.getTheGameObject();
-			
+	
+			// if not null send the ObjectTouch to ObjectEventMaster to handle
 			if (objectTouchedByPlayer.getTheGameObject() != null)
-				Debug.Log("The " + side + " of the " + go + " game object is being touched" );
+				objectEventMaster.executeEvent(objectTouchedByPlayer);
+				
 			else
 				Debug.Log("Nothing is being touched" );
 		}
 		
+		// draw lines in editor to highlight lines of communication and heirarchy of GOs
 		void OnDrawGizmos()
 		{
 			playerControllerGO = GameObject.Find("PlayerController");
 			Gizmos.color = Color.yellow;
 			Gizmos.DrawLine(transform.position, playerControllerGO.transform.position);
+			
+			objectEventMasterGO = GameObject.Find("ObjectEventMaster");
+			Gizmos.color = Color.yellow;
+			Gizmos.DrawLine(transform.position, objectEventMasterGO.transform.position);
 		}
 		
 	}

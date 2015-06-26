@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MyGame.Enums;
 
 
 
@@ -12,7 +13,7 @@ namespace MyGame.DataObjects
 	{
 	
 		GameObject theGameObject;
-		string sideAffected;
+		SidesList sideAffected;
 		
 		
 		public ObjectTouch()
@@ -20,13 +21,13 @@ namespace MyGame.DataObjects
 				
 		}
 		
-		public ObjectTouch(GameObject theGO, string side)
+		public ObjectTouch(GameObject theGO, SidesList side)
 		{
 			theGameObject = theGO;
 			sideAffected = side;	
 		}
 		
-		public string getSideAffected()
+		public SidesList getSideAffected()
 		{
 			
 			return sideAffected;
