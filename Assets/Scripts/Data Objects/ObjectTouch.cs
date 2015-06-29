@@ -15,6 +15,8 @@ namespace MyGame.DataObjects
 		GameObject theGameObject;
 		SidesList sideAffected;
 		
+			
+		
 		
 		public ObjectTouch()
 		{
@@ -36,6 +38,11 @@ namespace MyGame.DataObjects
 		public GameObject getTheGameObject()
 		{
 			return theGameObject;
+		}
+		
+		public InGameObjectsList getGOName()
+		{
+			return (InGameObjectsList)System.Enum.Parse(typeof(InGameObjectsList), theGameObject.name );
 		}
 		
 		

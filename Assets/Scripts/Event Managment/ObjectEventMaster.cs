@@ -2,6 +2,7 @@
 using System.Collections;
 using MyGame.DataObjects;
 using MyGame.Enums;
+using MyGame.ObjectScripts;
 
 
 namespace MyGame.EventManagment
@@ -25,40 +26,33 @@ namespace MyGame.EventManagment
 		
 		}
 		
-		// gets ready to execute events for a particular object's side.
+		// gets ready to execute objectevents
 		public void executeEvent (ObjectTouch theObjectTouch)
 		{	
 			
 			
-			InGameObjectsList objectName; 
-			string gOName =  theObjectTouch.getTheGameObject().name;
+		    
+			InGameObjectsList name = theObjectTouch.getGOName();
+			GameObject gO = theObjectTouch.getTheGameObject();
+			SidesList side = theObjectTouch.getSideAffected();
 			
-			//get the correct enum value from the "name" string
-			objectName = 
-			(InGameObjectsList)System.Enum.Parse(typeof(InGameObjectsList), gOName );
-			
-			
-			SidesList sideAffected = theObjectTouch.getSideAffected();
-			
-			//Debug.Log("The " + side + " of the " + go + " game object is being touched" );	
-			
-			switch (objectName)
+			switch (name)
 			{
-			case InGameObjectsList.Rectangle :
-				rectangleEvent (sideAffected);
+			case InGameObjectsList.Rectangle:
+				gO.GetComponent<Rectangle>().TouchEvent(side);
 				break;
-			}    
-		}
-		
-		// events for GO rectangle
-		void rectangleEvent (SidesList sideAffected)
-		{
-			switch (sideAffected)
-			{
-			case SidesList.front:
-				Debug.Log("I'm touching the front of the rectangle");
+			case InGameObjectsList.Sphere:
+				gO.GetComponent<Sphere>().TouchEvent(side);
 				break;
 			}
+			
+			
+				
+			
+			
+			
 		}
+		
+		
 	}
 }
