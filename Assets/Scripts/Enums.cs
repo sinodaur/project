@@ -6,7 +6,8 @@ namespace MyGame.Enums
 	public enum InGameObjectsList
 	{
 		Rectangle,
-		Sphere
+		Sphere,
+		MessageBoard
 		
 	}
 	

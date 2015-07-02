@@ -29,18 +29,18 @@ namespace MyGame.DataObjects
 			sideAffected = side;	
 		}
 		
-		public SidesList getSideAffected()
+		public SidesList GetSideAffected()
 		{
 			
 			return sideAffected;
 		}
 		
-		public GameObject getTheGameObject()
+		public GameObject GetTheGameObject()
 		{
 			return theGameObject;
 		}
 		
-		public InGameObjectsList getGOName()
+		public InGameObjectsList GetGOName()
 		{
 			return (InGameObjectsList)System.Enum.Parse(typeof(InGameObjectsList), theGameObject.name );
 		}

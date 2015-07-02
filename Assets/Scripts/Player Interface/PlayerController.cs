@@ -28,18 +28,18 @@ namespace MyGame.PlayerInterface
 		}
 		
 		
-		public void setGameObject(GameObject go)
+		public void SetGameObject(GameObject go)
 		{
 			gObject = go;
 		}
-		public GameObject getGameObject()
+		public GameObject GetGameObject()
 		{
 			return gObject;
 		}
 		
 		// Use this for contruction, gameObject must have RigidBody Component attached to work
 		
-		public void startObjectPlayerControl ()
+		public void StartObjectPlayerControl ()
 		{
 			
 			if (gObject != null) 
@@ -61,7 +61,7 @@ namespace MyGame.PlayerInterface
 			}
 		}
 		
-		public void stopObjectPlayerControl()
+		public void StopObjectPlayerControl()
 		{
 			CancelInvoke("Movement");
 			buttonPress = true;
@@ -81,7 +81,7 @@ namespace MyGame.PlayerInterface
 				
 			if (Input.GetButton("Fire1"))
 			{
-				if (!buttonPress) dM.notifyPlayerRequest("Fire1");
+				if (!buttonPress) dM.NotifyPlayerRequest("Fire1");
 				
 			}
 			else 

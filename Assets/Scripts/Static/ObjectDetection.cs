@@ -13,7 +13,7 @@ namespace MyGame.Static
 		
 		//detect what object the gameObject is touching with a ray and return an ObjectTouch Object
 		
-		public static ObjectTouch whatTouching(GameObject myGameObject)
+		public static ObjectTouch WhatTouching(GameObject myGameObject)
 		{
 			
 			ObjectTouch objectTouch = new ObjectTouch();

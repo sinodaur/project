@@ -27,14 +27,14 @@ namespace MyGame.EventManagment
 		}
 		
 		// gets ready to execute objectevents
-		public void executeEvent (ObjectTouch theObjectTouch)
+		public void ExecuteEvent (ObjectTouch theObjectTouch)
 		{	
 			
 			
 		    
-			InGameObjectsList name = theObjectTouch.getGOName();
-			GameObject gO = theObjectTouch.getTheGameObject();
-			SidesList side = theObjectTouch.getSideAffected();
+			InGameObjectsList name = theObjectTouch.GetGOName();
+			GameObject gO = theObjectTouch.GetTheGameObject();
+			SidesList side = theObjectTouch.GetSideAffected();
 			
 			switch (name)
 			{
