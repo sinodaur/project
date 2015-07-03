@@ -64,6 +64,9 @@ namespace MyGame.PlayerInterface
 		public void StopObjectPlayerControl()
 		{
 			CancelInvoke("Movement");
+			
+			// need to freeze player object here.
+			
 			buttonPress = true;
 			
 		}

@@ -70,9 +70,10 @@ namespace MyGame
 			playerController.StopObjectPlayerControl();
 			// action key that was pressed
 			if (button == "Fire1") SeeWhatPlayerWants();
+				
 			
-			// give control back to player
-			playerController.StartObjectPlayerControl();
+			//give control back to player
+			
 		}
 		
 		void SeeWhatPlayerWants() 
@@ -88,7 +89,7 @@ namespace MyGame
 				objectEventMaster.ExecuteEvent(objectTouchedByPlayer);
 				
 			else
-				messageGuy.DisplayMessage("Nothing is being touched");
+				playerController.StartObjectPlayerControl();
 				
 		}
 		

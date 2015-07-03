@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using MyGame.Enums;
+using MyGame.Messaging;
 
 namespace MyGame.ObjectScripts
 {
@@ -9,6 +10,7 @@ namespace MyGame.ObjectScripts
 	public class ObjectScripts : MonoBehaviour 
 	{	
 		string myGOName;
+		MessageGuy messageGuy; 
 	
 		// Use this for initialization
 		void Start () {
@@ -17,6 +19,8 @@ namespace MyGame.ObjectScripts
 			
 			Debug.Log ("I'm a " + myGOName  + " on the edge, two days from " +
 			"retirement");
+			
+			messageGuy = GameObject.Find("MessageGuy").GetComponent("MessageGuy") as MessageGuy;
 			
 		}
 		
@@ -30,22 +34,22 @@ namespace MyGame.ObjectScripts
 			switch (side)
 			{
 			case SidesList.front:
-				Debug.Log ("I'm touching the " + side + " of the " + myGOName);
+				messageGuy.DisplayMessage("I'm touching the " + side + " of the " + myGOName);
 				break;
 			case SidesList.back:
-				Debug.Log ("I'm touching the " + side + " of the " + myGOName);
+				messageGuy.DisplayMessage("I'm touching the " + side + " of the " + myGOName);
 				break;
 			case SidesList.left:
-				Debug.Log ("I'm touching the " + side + " of the " + myGOName);
+				messageGuy.DisplayMessage("I'm touching the " + side + " of the " + myGOName);
 				break;
 			case SidesList.right:
-				Debug.Log ("I'm touching the " + side + " of the " + myGOName);
+				messageGuy.DisplayMessage("I'm touching the " + side + " of the " + myGOName);
 				break;
 			case SidesList.top:
-				Debug.Log ("I'm touching the " + side + " of the " + myGOName);
+				messageGuy.DisplayMessage("I'm touching the " + side + " of the " + myGOName);
 				break;
 			case SidesList.bottom:
-				Debug.Log ("I'm touching the " + side + " of the " + myGOName);
+				messageGuy.DisplayMessage("I'm touching the " + side + " of the " + myGOName);
 				break;
 				
 			}
