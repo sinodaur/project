@@ -87,6 +87,10 @@ namespace MyGame.PlayerInterface
 				if (!buttonPress) dM.NotifyPlayerRequest("Fire1");
 				
 			}
+			else if (Input.GetButton("Fire2"))
+			{
+				if (!buttonPress) dM.NotifyPlayerRequest("Fire2");
+			}
 			else 
 			{
 				buttonPress = false;
