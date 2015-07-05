@@ -19,7 +19,6 @@ namespace MyGame
 		GameObject objectEventMasterGO;
 		PlayerController playerController;
 		MessageGuy messageGuy; 
-		Light playerLight;
 		
 		
 		
@@ -56,9 +55,6 @@ namespace MyGame
 			//get messageGuy
 			messageGuy = GameObject.Find("MessageGuy").GetComponent("MessageGuy") as MessageGuy;
 			
-			//get players light
-			playerLight = GameObject.Find("PlayerLight").GetComponent("Light") as Light;
-			
 		}
 		
 		// Update is called once per frame
@@ -74,12 +70,7 @@ namespace MyGame
 			playerController.StopObjectPlayerControl();
 			// action key that was pressed
 			if (button == "Fire1") SeeWhatPlayerWants();
-			else if (button == "Fire2")
-			{
-				if (playerLight.enabled == true) playerLight.enabled = false;
-				else  playerLight.enabled = true;
-				playerController.StartObjectPlayerControl();
-			}	
+				
 			
 			//give control back to player
 			
