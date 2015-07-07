@@ -1,24 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace MyGame.Enums
+
+public enum InGameObjectsList
 {
-	public enum InGameObjectsList
-	{
-		Rectangle,
-		Sphere,
-		MessageBoard
-		
-	}
+	Rectangle,
+	Sphere,
+	MessageBoard
 	
-	public enum SidesList
-	{
-		front,
-		back,
-		left,
-		right,
-		top,
-		bottom
-	}
 }
+
+public enum SidesList
+{
+	front,
+	back,
+	left,
+	right,
+	top,
+	bottom
+}
+
+
+
 
