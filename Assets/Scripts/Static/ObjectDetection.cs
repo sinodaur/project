@@ -59,7 +59,7 @@ public class ObjectDetection
 			else if (largestPower == 2 && rightDot < 0) myObjectsSide = SidesList.left;
 			else if (largestPower == 2 && rightDot > 0) myObjectsSide = SidesList.right;
 			
-			objectTouch = new ObjectTouch(myBox.gameObject, myObjectsSide);
+			objectTouch = new ObjectTouch(myBox.gameObject, myObjectsSide, myGameObject);
 			
 			return objectTouch;
 			
@@ -68,6 +68,8 @@ public class ObjectDetection
 		return objectTouch;	
 			
 	}
+	
+	
 		
 		
 	

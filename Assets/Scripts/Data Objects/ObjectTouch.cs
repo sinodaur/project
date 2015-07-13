@@ -7,9 +7,10 @@ using System.Collections;
 
 public class ObjectTouch
 {
-
-	GameObject theGameObject;
-	SidesList sideAffected;
+	
+	public GameObject theGameObject;
+	public SidesList sideAffected;
+	public GameObject thePlayer;
 	
 		
 	
@@ -19,10 +20,11 @@ public class ObjectTouch
 			
 	}
 	
-	public ObjectTouch(GameObject theGO, SidesList side)
+	public ObjectTouch(GameObject theGO, SidesList side, GameObject theP)
 	{
 		theGameObject = theGO;
-		sideAffected = side;	
+		sideAffected = side;
+		thePlayer = theP;	
 	}
 	
 	public SidesList GetSideAffected()
@@ -35,6 +37,8 @@ public class ObjectTouch
 	{
 		return theGameObject;
 	}
+	
+	
 	
 	
 	

@@ -31,13 +31,13 @@ public class DM : MonoBehaviour {
 		// find the main player of the game
 		player = GameObject.Find("Player");
 		
-		//find subordinates
+		// initialize subordinate game logic scripts
+		playerController = GameObject.Find("PlayerController").AddComponent<PlayerController>();
+		objectEventMaster = GameObject.Find("ObjectEventMaster").AddComponent<ObjectEventMaster>();
+		messageGuy = GameObject.Find("MessageGuy").AddComponent<MessageGuy>();
+		cameraController = GameObject.Find("CameraController").AddComponent<CameraController>();
+		dM = this.GetComponent<DM>();
 		
-		playerController = GameObject.Find("PlayerController").GetComponent<PlayerController>();
-		objectEventMaster = GameObject.Find("ObjectEventMaster").GetComponent<ObjectEventMaster>();
-		dM = GameObject.Find("DM").GetComponent<DM>();
-		messageGuy = GameObject.Find("MessageGuy").GetComponent<MessageGuy>();
-		cameraController = GameObject.Find("CameraController").GetComponent<CameraController>();
 	
 		//initialize AllGLInstances
 		allGLInstances = 

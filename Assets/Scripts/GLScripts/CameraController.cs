@@ -8,31 +8,31 @@ public class CameraController : MonoBehaviour {
 	GameObject currentCamera; 
 	GameObject currentPlayer;
 	Vector3 playerPos;
-	bool init;
+	
 	
 	// Use this for initialization
 	void Start () {
-		init = false;
+		
+		currentPlayer = GLS.dM.GetPlayer();
+		playerPos = new Vector3();
 		currentCamera = GameObject.Find("PlayerCamera");
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		if (init)
-		{
+	void Update () 
+	{
+		
 		playerPos = currentPlayer.transform.position;
 		playerPos.Set(playerPos.x, playerPos.y + 19f, playerPos.z - 20f);
 		currentCamera.transform.position = playerPos;	
-		}	
+			
 	}
 	
 	//get glinstances and initialize variables
 	public void SetGLInstances(AllGLInstances gls)
 	{
 		GLS = gls;
-		currentPlayer = GLS.dM.GetPlayer();
-		playerPos = new Vector3();
-		init = true;
+		
 	}
 }

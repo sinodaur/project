@@ -25,22 +25,14 @@ public class ObjectEventMaster : MonoBehaviour
 	// gets ready to execute objectevents
 	public void ExecuteTouchEvent (ObjectTouch anObjectTouch)
 	{	
-		
-		
-	    
-	
 		GameObject gO = anObjectTouch.GetTheGameObject();
 		SidesList side = anObjectTouch.GetSideAffected();
 		
-		messageGuy.DisplayMessage("I'm touching the " + sides[(int)side] + " of the " + gO.name);
-		
-		
-		
-			
-		
-		
-		
+		messageGuy.DisplayMessage("I, " + anObjectTouch.thePlayer.name +
+			" am touching the " + sides[(int)side] + " of the " + gO.name);
 	}
+	
+	 
 	
 	
 }
