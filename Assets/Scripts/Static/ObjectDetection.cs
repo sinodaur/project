@@ -1,17 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.IO;
 
 public class ObjectDetection 
 
 {
 	
-
+	
+	
 	
 	//detect what object the gameObject is touching with a ray and return an ObjectTouch Object
 	
 	public static ObjectTouch WhatTouching(GameObject myGameObject)
 	{
+		
+		//get texture for light detection purposes
+		Camera camera = GameObject.Find("RenderTextureCamera").GetComponent<Camera>();
+		CameraCapture capture = GameObject.Find("RenderTextureCamera").GetComponent<CameraCapture>();
+		camera.Render();
+		Debug.Log (capture.RenderResult);
+		byte[] bytes = capture.RenderResult.EncodeToPNG();
+		File.WriteAllBytes(Application.dataPath + "/../SavedScreen.png", bytes);
+		
 		
 		ObjectTouch objectTouch = new ObjectTouch();
 		BoxCollider myBox = new BoxCollider();
@@ -28,6 +38,7 @@ public class ObjectDetection
 		SidesList myObjectsSide = SidesList.front;
 		
 		Vector3 fwd = myGameObject.transform.TransformDirection(Vector3.forward);
+		
 		
 		
 		if (Physics.Raycast(myGameObject.transform.position, fwd, out hit, 1f))

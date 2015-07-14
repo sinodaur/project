@@ -16,6 +16,9 @@ public class DM : MonoBehaviour {
 	AllGLInstances allGLInstances; 
 	Light playerLight;
 	
+	Texture texture;
+	Texture2D texture2D;
+	
 	
 	
 	
@@ -67,6 +70,13 @@ public class DM : MonoBehaviour {
 		//get players light
 		playerLight = GameObject.Find("PlayerLight").GetComponent("Light") as Light;
 		
+		
+		//texture = GameObject.Find("RenderTextureCamera").GetComponent<Camera>().targetTexture;
+		//texture2D = new Texture2D(32,32);
+		//StartCoroutine(getTexture());
+		
+		//Debug.Log (texture.name + " and " + texture2D.name);
+		
 	}
 	
 	// Update is called once per frame
@@ -114,6 +124,13 @@ public class DM : MonoBehaviour {
 	{
 		return player;
 	}
+	
+	//IEnumerator getTexture()
+	//{
+	//	yield return new WaitForEndOfFrame();
+	//	texture2D.ReadPixels(new Rect(0, 0, texture.width, texture.height), 0, 0);
+	//	texture2D.Apply();
+	//}
 //	
 //	// draw lines in editor to highlight lines of communication and heirarchy of GOs
 //	void OnDrawGizmos()
