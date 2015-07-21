@@ -14,13 +14,10 @@ public class ObjectDetection
 	public static ObjectTouch WhatTouching(GameObject myGameObject)
 	{
 		
-		//get texture for light detection purposes
-		Camera camera = GameObject.Find("RenderTextureCamera").GetComponent<Camera>();
-		CameraCapture capture = GameObject.Find("RenderTextureCamera").GetComponent<CameraCapture>();
-		camera.Render();
-		Debug.Log (capture.RenderResult);
-		byte[] bytes = capture.RenderResult.EncodeToPNG();
-		File.WriteAllBytes(Application.dataPath + "/../SavedScreen.png", bytes);
+		//get texture image for light detection purposes
+		takePicture(myGameObject);
+		// use takePicture return data to determine if lighted
+		// isLit(texture2d)
 		
 		
 		ObjectTouch objectTouch = new ObjectTouch();
@@ -78,6 +75,34 @@ public class ObjectDetection
 			
 		return objectTouch;	
 			
+	}
+	
+	static void takePicture(GameObject viewer)
+	{
+		//Get the sensor camera and CameraCapture instance
+		Camera camera = GameObject.Find("Sensor").GetComponent<Camera>();
+		CameraCapture capture = GameObject.Find("Sensor").GetComponent<CameraCapture>();
+		
+		//place camera in right place
+		camera.transform.position = viewer.transform.position;
+		camera.transform.rotation = viewer.transform.rotation;
+		
+		//enable cam
+		camera.enabled = true;
+		
+		// allows CameraCapture to do it's thing.
+		camera.Render();
+		
+		// get pixels
+		Color32[] pixels = capture.RenderResult.GetPixels32();
+		Debug.Log (pixels[0].r + " " + pixels[0].g + " " + pixels[0].b + " " + pixels[0].a);
+		
+		//save CameraCapture to PNG file
+		byte[] bytes = capture.RenderResult.EncodeToPNG();
+		File.WriteAllBytes(Application.dataPath + "/../SavedScreen.png", bytes);
+		
+		//close camera
+		camera.enabled = false;
 	}
 	
 	
