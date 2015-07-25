@@ -11,6 +11,7 @@ public class ObjectTouch
 	public GameObject theGameObject;
 	public SidesList sideAffected;
 	public GameObject thePlayer;
+	public bool isLit;
 	
 		
 	
@@ -20,11 +21,12 @@ public class ObjectTouch
 			
 	}
 	
-	public ObjectTouch(GameObject theGO, SidesList side, GameObject theP)
+	public ObjectTouch(GameObject theGO, SidesList side, GameObject theP, bool isL)
 	{
 		theGameObject = theGO;
 		sideAffected = side;
-		thePlayer = theP;	
+		thePlayer = theP;
+		isLit = isL;	
 	}
 	
 	public SidesList GetSideAffected()

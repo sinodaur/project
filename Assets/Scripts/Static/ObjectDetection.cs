@@ -6,7 +6,7 @@ public class ObjectDetection
 
 {
 	
-	
+	static int brightnessThreshold = 10000;
 	
 	
 	//detect what object the gameObject is touching with a ray and return an ObjectTouch Object
@@ -15,7 +15,7 @@ public class ObjectDetection
 	{
 		
 		//get texture image for light detection purposes
-		takePicture(myGameObject);
+		bool isLit = takePicture(myGameObject);
 		// use takePicture return data to determine if lighted
 		// isLit(texture2d)
 		
@@ -37,7 +37,7 @@ public class ObjectDetection
 		Vector3 fwd = myGameObject.transform.TransformDirection(Vector3.forward);
 		
 		
-		
+		//figure out what and what side gameobject is touching
 		if (Physics.Raycast(myGameObject.transform.position, fwd, out hit, 1f))
 		{
 			
@@ -67,7 +67,7 @@ public class ObjectDetection
 			else if (largestPower == 2 && rightDot < 0) myObjectsSide = SidesList.left;
 			else if (largestPower == 2 && rightDot > 0) myObjectsSide = SidesList.right;
 			
-			objectTouch = new ObjectTouch(myBox.gameObject, myObjectsSide, myGameObject);
+			objectTouch = new ObjectTouch(myBox.gameObject, myObjectsSide, myGameObject, isLit);
 			
 			return objectTouch;
 			
@@ -77,8 +77,13 @@ public class ObjectDetection
 			
 	}
 	
-	static void takePicture(GameObject viewer)
+	//take a picture from in front of gameobject and get some information out of it
+	//requires camera with a CameraCapture script attached
+	static bool takePicture(GameObject viewer)
 	{
+		
+		bool isLit = true;
+		
 		//Get the sensor camera and CameraCapture instance
 		Camera camera = GameObject.Find("Sensor").GetComponent<Camera>();
 		CameraCapture capture = GameObject.Find("Sensor").GetComponent<CameraCapture>();
@@ -95,14 +100,37 @@ public class ObjectDetection
 		
 		// get pixels
 		Color32[] pixels = capture.RenderResult.GetPixels32();
-		Debug.Log (pixels[0].r + " " + pixels[0].g + " " + pixels[0].b + " " + pixels[0].a);
+		
+		//values to determine image brightness and color
+		int colSum = 0;
+		int redSum = 0;
+		int greenSum = 0;
+		int blueSum = 0;
+		
+		// loop to fill sums variables with information
+		foreach (Color32 pixel in pixels)
+		{
+			redSum += pixel.r;
+			greenSum += pixel.g;
+			blueSum += pixel.b;	
+		}
+		colSum = redSum + greenSum + blueSum;
+		
+		//Debug.Log (colSum);
 		
 		//save CameraCapture to PNG file
-		byte[] bytes = capture.RenderResult.EncodeToPNG();
-		File.WriteAllBytes(Application.dataPath + "/../SavedScreen.png", bytes);
+		//byte[] bytes = capture.RenderResult.EncodeToPNG();
+		//File.WriteAllBytes(Application.dataPath + "/../SavedScreen.png", bytes);
 		
 		//close camera
 		camera.enabled = false;
+		
+		if (colSum < brightnessThreshold)
+		{
+			isLit = false;
+		}
+		
+		return isLit;
 	}
 	
 	

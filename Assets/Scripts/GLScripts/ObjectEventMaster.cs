@@ -28,8 +28,18 @@ public class ObjectEventMaster : MonoBehaviour
 		GameObject gO = anObjectTouch.GetTheGameObject();
 		SidesList side = anObjectTouch.GetSideAffected();
 		
-		messageGuy.DisplayMessage("I, " + anObjectTouch.thePlayer.name +
+		if (anObjectTouch.isLit == true)
+		{
+		
+			messageGuy.DisplayMessage("I, " + anObjectTouch.thePlayer.name +
 			" am touching the " + sides[(int)side] + " of the " + gO.name);
+		}
+		else
+		{
+			messageGuy.DisplayMessage("I, " + anObjectTouch.thePlayer.name +
+			 " am touching something but I can't see it.");
+		}
+		
 	}
 	
 	 
