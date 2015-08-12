@@ -9,7 +9,8 @@ public class PlayerController : MonoBehaviour
 	 DM dM;
 	 GameObject gObject;
 	 Rigidbody RBody;
-	 float speed = 500f;
+	 public float speed = 500f;
+	 public float drag = 20f;
 	 Vector3 playerOrientation = new Vector3();
 	 Vector3 playerStop = new Vector3();
 	 
@@ -48,7 +49,7 @@ public class PlayerController : MonoBehaviour
 			if (RBody != null) 
 			{
 				
-				RBody.drag = 20;
+				RBody.drag = drag;
 				RBody.constraints = RigidbodyConstraints.FreezeRotationY | 
 					RigidbodyConstraints.FreezeRotationX | 
 						RigidbodyConstraints.FreezeRotationZ |
