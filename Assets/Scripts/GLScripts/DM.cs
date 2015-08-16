@@ -98,6 +98,17 @@ public class DM : MonoBehaviour {
 			else  playerLight.enabled = true;
 			playerController.StartObjectPlayerControl();
 		}	
+		else if (button == "CameraLeft")
+		{
+			//cameraController.rotateLeft90();
+			playerController.StartObjectPlayerControl();
+		}
+		else if (button == "CameraRight")
+		{
+			
+			
+			playerController.StartObjectPlayerControl();
+		}		
 		
 		//give control back to player
 		

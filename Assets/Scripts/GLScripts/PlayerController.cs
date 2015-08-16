@@ -91,6 +91,14 @@ public class PlayerController : MonoBehaviour
 		{
 			if (!buttonPress) dM.NotifyPlayerRequest("Fire2");
 		}
+		else if (Input.GetButton("CameraLeft"))
+		{
+			if (!buttonPress) dM.NotifyPlayerRequest("CameraLeft");
+		}
+		else if (Input.GetButton("CameraRight"))
+		{
+			if (!buttonPress) dM.NotifyPlayerRequest("CameraRight");
+		}
 		else 
 		{
 			buttonPress = false;
