@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
 	 public float drag = 20f;
 	 Vector3 playerOrientation = new Vector3();
 	 Vector3 playerStop = new Vector3();
+	 public bool moveEnabled;
 	 
 	 // for keeping the action buttons from being continously held down by player
 	 bool buttonPress = false;
@@ -24,7 +25,7 @@ public class PlayerController : MonoBehaviour
 	void Start() 
 	{
 		dM = GameObject.Find("DM").GetComponent("DM") as DM;
-		
+		moveEnabled = true;
 	}
 	
 	
@@ -55,7 +56,7 @@ public class PlayerController : MonoBehaviour
 						RigidbodyConstraints.FreezeRotationZ |
 						RigidbodyConstraints.FreezePositionY;
 				
-				InvokeRepeating("Movement", .05f, 0.05F);
+				InvokeRepeating("Movement", .05f, .05F);
 					
 			}
 		}

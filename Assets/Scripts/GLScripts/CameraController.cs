@@ -10,7 +10,7 @@ public class CameraController : MonoBehaviour {
 	Vector3 playerPos;
 	float currentAngle;
 	float x;
-	float y;
+	float z;
 	float cameraHeight;
 	float cameraDistance;
 	Vector3 cameraPos;
@@ -20,15 +20,15 @@ public class CameraController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		
-		currentAngle = 0f;
+		currentAngle = 180f;
 		currentPlayer = GLS.dM.GetPlayer();
 		playerPos = new Vector3();
+		
 		currentCamera = GameObject.Find("PlayerCamera");
 		cameraHeight = 19f;
 		cameraDistance = 20f;
-		//playerPos = currentPlayer.transform.position;
-		//cameraPos = new Vector3(playerPos.x, playerPos.y + cameraHeight, playerPos.z - cameraDistance);
-		//currentCamera.transform.position = cameraPos;
+		cameraPos = new Vector3(playerPos.x, playerPos.y + cameraHeight, playerPos.z - cameraDistance);
+		
 		
 		
 	}
@@ -38,9 +38,14 @@ public class CameraController : MonoBehaviour {
 	{
 		
 		playerPos = currentPlayer.transform.position;
-		playerPos.Set(playerPos.x, playerPos.y + cameraHeight, playerPos.z - cameraDistance);
-		currentCamera.transform.position = playerPos;	
-			
+		x = playerPos.x;
+		z = playerPos.z;
+		cameraPos.Set(x + Mathf.Sin (Mathf.Deg2Rad * currentAngle) * cameraDistance,
+		              playerPos.y + cameraHeight, 
+		              z + Mathf.Cos (Mathf.Deg2Rad * currentAngle) * cameraDistance);
+		currentCamera.transform.position = cameraPos;
+		
+	
 	}
 	
 	//get glinstances and initialize variables
@@ -52,24 +57,40 @@ public class CameraController : MonoBehaviour {
 	
 	public void rotateLeft90()
 	{
+		currentCamera.transform.eulerAngles = new Vector3 (currentCamera.transform.eulerAngles.x, currentCamera.transform.eulerAngles.y + 1f ,currentCamera.transform.eulerAngles.z); 
 		
-		x = playerPos.x;
-		y = playerPos.z;
-		
-		currentAngle += 90f;
-		
-		Vector3 pos = new Vector3(x + Mathf.Sin (Mathf.Deg2Rad * currentAngle) * cameraDistance,
-		                                         cameraPos.y, 
-		                                         y + Mathf.Cos (Mathf.Deg2Rad * currentAngle) * cameraDistance);
-		Vector3 epos = new Vector3(currentCamera.transform.eulerAngles.x, currentCamera.transform.eulerAngles.y - 180f, currentCamera.transform.eulerAngles.z);                                        
-		currentCamera.transform.position = pos;
-		currentCamera.transform.eulerAngles = epos;
-		
+		InvokeRepeating("MoveCameraLeft", .02f, .02f);	
 	}
 	
 	public void rotateRight90()
 	{
+		currentCamera.transform.eulerAngles = new Vector3 (currentCamera.transform.eulerAngles.x, currentCamera.transform.eulerAngles.y - 1f ,currentCamera.transform.eulerAngles.z); 
+		InvokeRepeating("MoveCameraRight", .02f, .02f);
+	}
+	
+	void MoveCameraLeft()
+	{
+		currentAngle += 1f;
+	    currentCamera.transform.eulerAngles = new Vector3 (currentCamera.transform.eulerAngles.x, currentCamera.transform.eulerAngles.y + 1f ,currentCamera.transform.eulerAngles.z);
+		if ((int)currentCamera.transform.eulerAngles.y % 90 == 0)
+		{
+			GLS.playerController.StartObjectPlayerControl();
+			CancelInvoke("MoveCameraLeft");
+			
+		}	
+			
 		
+	}
+	void MoveCameraRight()
+	{
+		currentAngle -= 1f;
+		currentCamera.transform.eulerAngles = new Vector3 (currentCamera.transform.eulerAngles.x, currentCamera.transform.eulerAngles.y - 1f ,currentCamera.transform.eulerAngles.z);
+		if ((int)currentCamera.transform.eulerAngles.y % 90 == 0)
+		{
+			GLS.playerController.StartObjectPlayerControl();
+			CancelInvoke("MoveCameraRight");
+				
+		}
 	}
 	
 }

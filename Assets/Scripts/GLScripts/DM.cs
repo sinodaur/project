@@ -100,14 +100,14 @@ public class DM : MonoBehaviour {
 		}	
 		else if (button == "CameraLeft")
 		{
-			//cameraController.rotateLeft90();
-			playerController.StartObjectPlayerControl();
+			cameraController.rotateLeft90();
+			//playerController.StartObjectPlayerControl();
 		}
 		else if (button == "CameraRight")
 		{
 			
-			
-			playerController.StartObjectPlayerControl();
+			cameraController.rotateRight90();
+			//playerController.StartObjectPlayerControl();
 		}		
 		
 		//give control back to player
