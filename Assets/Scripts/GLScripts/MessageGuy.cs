@@ -9,10 +9,11 @@ using UnityEngine.UI;
 public class MessageGuy : MonoBehaviour
 {
 	//GameObject messageBoard;
-	Camera boardCamera;
+	public Camera boardCamera;
 	Text boardText;
 	PlayerController playerController;
-	
+	float timer;
+	public bool freezeMessage;
 	
 	
 	
@@ -20,7 +21,7 @@ public class MessageGuy : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{	
-		
+		freezeMessage = false;
 		//messageBoard = GameObject.Find("MessageBoard");
 		boardCamera = GameObject.Find("MessageBoardCamera").GetComponent("Camera") as Camera;
 		boardCamera.enabled = false;
@@ -31,30 +32,33 @@ public class MessageGuy : MonoBehaviour
 	}
 	
 	// Update is called once per frame
-	void Update ()
-	{
-	
+	void FixedUpdate ()
+	{	Debug.Log (Input.GetButton("Fire1"));
+		if (boardCamera.enabled == true)
+			if (Time.fixedTime > timer && Input.GetButton("Fire1") == true)
+				EraseMessage();
+		
+		
 	}
 	
 	public void DisplayMessage (string message)
 	{
-		
 		boardText.text = message;
+		if (!boardCamera.enabled) timer = Time.fixedTime + .5f;
 		boardCamera.enabled = true;
-		//Debug.Log("Nothing is being touched");
-		InvokeRepeating("WaitForPlayerToRead", .5f, 0.05F);
+		freezeMessage = true;
+		
+		
 	}
 	
-	void WaitForPlayerToRead()
-	{
-		if (Input.GetButton("Fire1")) EraseMessage();
-	}
+	
 	
 	void EraseMessage()
 	{	
-		CancelInvoke("WaitForPlayerToRead");
+		
 		boardCamera.enabled = false;
-		playerController.StartObjectPlayerControl();
+		freezeMessage = false;
+		
 	}
 }
 

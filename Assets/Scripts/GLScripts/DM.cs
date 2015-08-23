@@ -13,7 +13,7 @@ public class DM : MonoBehaviour {
 	ObjectEventMaster objectEventMaster;
 	PlayerController playerController;
 	MessageGuy messageGuy;
-	AllGLInstances allGLInstances; 
+	public AllGLInstances allGLInstances; 
 	Light playerLight;
 	
 	Texture texture;
@@ -29,7 +29,7 @@ public class DM : MonoBehaviour {
 	
 	
 	// This class is central gl
-	void Start () 
+	void OnEnable () 
 	{	
 		// find the main player of the game
 		player = GameObject.Find("Player");
@@ -56,6 +56,7 @@ public class DM : MonoBehaviour {
 		
 		
 		// get ahold of the PlayerController instance that gives control of GameObjects to the player
+		playerController.SetGLInstances(allGLInstances);
 		
 		
 		// tell the PlayerController to give control to the Player GameObject

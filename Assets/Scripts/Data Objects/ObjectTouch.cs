@@ -12,7 +12,7 @@ public class ObjectTouch
 	public SidesList sideAffected;
 	public GameObject thePlayer;
 	public bool isLit;
-	
+	public string sideAffectedString;
 		
 	
 	
@@ -23,10 +23,12 @@ public class ObjectTouch
 	
 	public ObjectTouch(GameObject theGO, SidesList side, GameObject theP, bool isL)
 	{
+		string[] sides = new string[]{"front", "back", "left", "right", "top", "bottom"};
 		theGameObject = theGO;
 		sideAffected = side;
 		thePlayer = theP;
-		isLit = isL;	
+		isLit = isL;
+		sideAffectedString = sides[(int)side];	
 	}
 	
 	public SidesList GetSideAffected()

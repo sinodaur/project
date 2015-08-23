@@ -5,7 +5,7 @@ public class CameraController : MonoBehaviour {
 	
 	
 	AllGLInstances GLS;
-	GameObject currentCamera; 
+	public GameObject currentCamera; 
 	GameObject currentPlayer;
 	Vector3 playerPos;
 	float currentAngle;
