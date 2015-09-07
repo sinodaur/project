@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviour
 		CancelInvoke("Movement");
 		
 		// need to freeze player object here.
+		RBody.velocity = Vector3.zero;
 		
 		buttonPress = true;
 		
@@ -89,7 +90,7 @@ public class PlayerController : MonoBehaviour
 		if (GLS.messageGuy.freezeMessage) return;
 		
 		
-			angleMod = GLS.cameraController.currentCamera.transform.eulerAngles.y;
+			angleMod = GLS.cameraController.cameraTransform.eulerAngles.y;
 			
 			
 			

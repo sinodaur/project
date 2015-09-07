@@ -21,9 +21,9 @@ public class Interaction : MonoBehaviour {
 	protected virtual void FixedUpdate()
 	{
 		if (touchtype != "")
-			Debug.Log ("fixedupdate");
-			Debug.Log (touchtype);
-			Debug.Log (step);
+//			Debug.Log ("fixedupdate");
+//			Debug.Log (touchtype);
+//			Debug.Log (step);
 			switch (touchtype)
 			{
 			case ("front"):

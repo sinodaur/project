@@ -33,7 +33,7 @@ public class MessageGuy : MonoBehaviour
 	
 	// Update is called once per frame
 	void FixedUpdate ()
-	{	Debug.Log (Input.GetButton("Fire1"));
+	{	//Debug.Log (Input.GetButton("Fire1"));
 		if (boardCamera.enabled == true)
 			if (Time.fixedTime > timer && Input.GetButton("Fire1") == true)
 				EraseMessage();

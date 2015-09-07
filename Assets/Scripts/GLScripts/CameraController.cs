@@ -5,47 +5,55 @@ public class CameraController : MonoBehaviour {
 	
 	
 	AllGLInstances GLS;
-	public GameObject currentCamera; 
-	GameObject currentPlayer;
-	Vector3 playerPos;
-	float currentAngle;
-	float x;
-	float z;
-	float cameraHeight;
-	float cameraDistance;
-	Vector3 cameraPos;
-	
-	
+	float distance;
+	Vector3 direction;
+	Vector3 heading;
+	Vector3 cameraAxis;
+	public Transform cameraTransform;
+	Transform playerTransform;
+	public bool rotateLeft;
+	public bool rotateRight;
+	float startAngle;
 	
 	// Use this for initialization
-	void Start () {
+	void Start () 
+	{
+		cameraTransform = GameObject.Find("PlayerCamera").transform;
+		playerTransform = GameObject.Find("Player").transform;
 		
-		currentAngle = 180f;
-		currentPlayer = GLS.dM.GetPlayer();
-		playerPos = new Vector3();
+		cameraTransform.position = new Vector3(playerTransform.position.x,
+			playerTransform.position.y + 10, playerTransform.position.z - 10);
+			
+		cameraAxis = new Vector3(0,10,0) + playerTransform.position;
+		heading = cameraTransform.position - playerTransform.position;
+		distance = heading.magnitude;
+		direction = heading / distance;
 		
-		currentCamera = GameObject.Find("PlayerCamera");
-		cameraHeight = 19f;
-		cameraDistance = 20f;
-		cameraPos = new Vector3(playerPos.x, playerPos.y + cameraHeight, playerPos.z - cameraDistance);
-		
-		
-		
+		rotateLeft = false;
+		rotateRight = false;
+		startAngle = cameraTransform.eulerAngles.y;
+		Debug.Log (startAngle);
 	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
 		
-		playerPos = currentPlayer.transform.position;
-		x = playerPos.x;
-		z = playerPos.z;
-		cameraPos.Set(x + Mathf.Sin (Mathf.Deg2Rad * currentAngle) * cameraDistance,
-		              playerPos.y + cameraHeight, 
-		              z + Mathf.Cos (Mathf.Deg2Rad * currentAngle) * cameraDistance);
-		currentCamera.transform.position = cameraPos;
+		cameraAxis = new Vector3(0,10,0) + playerTransform.position;
 		
-	
+		if (rotateLeft)
+		{
+			MoveLeft90();
+		}
+		else if (rotateRight)
+		{	
+			MoveRight90();
+		}
+		else 
+		{
+			cameraTransform.position = playerTransform.position + heading; 
+		}
+		
 	}
 	
 	//get glinstances and initialize variables
@@ -57,39 +65,92 @@ public class CameraController : MonoBehaviour {
 	
 	public void rotateLeft90()
 	{
-		currentCamera.transform.eulerAngles = new Vector3 (currentCamera.transform.eulerAngles.x, currentCamera.transform.eulerAngles.y + 1f ,currentCamera.transform.eulerAngles.z); 
-		
-		InvokeRepeating("MoveCameraLeft", .02f, .02f);	
+		rotateLeft = true;
 	}
 	
 	public void rotateRight90()
 	{
-		currentCamera.transform.eulerAngles = new Vector3 (currentCamera.transform.eulerAngles.x, currentCamera.transform.eulerAngles.y - 1f ,currentCamera.transform.eulerAngles.z); 
-		InvokeRepeating("MoveCameraRight", .02f, .02f);
+		rotateRight = true;
 	}
 	
-	void MoveCameraLeft()
+	void MoveLeft90()
 	{
-		currentAngle += 1f;
-	    currentCamera.transform.eulerAngles = new Vector3 (currentCamera.transform.eulerAngles.x, currentCamera.transform.eulerAngles.y + 1f ,currentCamera.transform.eulerAngles.z);
-		if ((int)currentCamera.transform.eulerAngles.y % 90 == 0)
+		cameraTransform.RotateAround(cameraAxis, Vector3.up, 80 * Time.deltaTime);
+		if (startAngle != 270)
 		{
-			GLS.playerController.StartObjectPlayerControl();
-			CancelInvoke("MoveCameraLeft");
-			
-		}	
-			
+			if ((int)cameraTransform.eulerAngles.y > startAngle + 90)
+			{
+				startAngle = startAngle + 90f;
+				cameraTransform.eulerAngles = 
+					new Vector3(cameraTransform.eulerAngles.x, startAngle, 
+					            cameraTransform.eulerAngles.z);
+				heading = cameraTransform.position - playerTransform.position;
+				rotateLeft = false;
+				GLS.playerController.StartObjectPlayerControl();		
+			}
+		}
+		else 
+		{	
+			if ((int)cameraTransform.eulerAngles.y < 270 && (int)cameraTransform.eulerAngles.y > 0 ) 
+			{
+				
+				
+				startAngle = 0f;
+				cameraTransform.eulerAngles = 
+					new Vector3(cameraTransform.eulerAngles.x, startAngle, 
+					            cameraTransform.eulerAngles.z);
+				heading = cameraTransform.position - playerTransform.position;
+				rotateLeft = false;	
+				GLS.playerController.StartObjectPlayerControl();	
+			}
+		}
+		
 		
 	}
-	void MoveCameraRight()
+	
+	void MoveRight90()
 	{
-		currentAngle -= 1f;
-		currentCamera.transform.eulerAngles = new Vector3 (currentCamera.transform.eulerAngles.x, currentCamera.transform.eulerAngles.y - 1f ,currentCamera.transform.eulerAngles.z);
-		if ((int)currentCamera.transform.eulerAngles.y % 90 == 0)
+		cameraTransform.RotateAround(cameraAxis, Vector3.up, -80 * Time.deltaTime);
+		if (startAngle == 180 || startAngle == 270)
 		{
-			GLS.playerController.StartObjectPlayerControl();
-			CancelInvoke("MoveCameraRight");
+			if ((int)cameraTransform.eulerAngles.y < startAngle - 90)
+			{
+				startAngle = startAngle - 90f;
+				cameraTransform.eulerAngles = 
+					new Vector3(cameraTransform.eulerAngles.x, startAngle, 
+					            cameraTransform.eulerAngles.z);
+				heading = cameraTransform.position - playerTransform.position;
+				rotateRight = false;
+				GLS.playerController.StartObjectPlayerControl();		
+			}
+		}
+		else if (startAngle == 90)
+		{
+			if ((int)cameraTransform.eulerAngles.y < 360 && (int)cameraTransform.eulerAngles.y > 90)
+			{
+				startAngle = startAngle - 90f;
+				cameraTransform.eulerAngles = 
+					new Vector3(cameraTransform.eulerAngles.x, startAngle, 
+					            cameraTransform.eulerAngles.z);
+				heading = cameraTransform.position - playerTransform.position;
+				rotateRight = false;
+				GLS.playerController.StartObjectPlayerControl();		
+			}
+		}
+		else 
+		{	
+			if ((int)cameraTransform.eulerAngles.y < 270 && (int)cameraTransform.eulerAngles.y > 0 ) 
+			{
 				
+				
+				startAngle = 270f;
+				cameraTransform.eulerAngles = 
+					new Vector3(cameraTransform.eulerAngles.x, startAngle, 
+					            cameraTransform.eulerAngles.z);
+				heading = cameraTransform.position - playerTransform.position;
+				rotateRight = false;	
+				GLS.playerController.StartObjectPlayerControl();	
+			}
 		}
 	}
 	
